@@ -1,0 +1,148 @@
+% UniMe Beamer theme (16:9), University of Messina.
+% Colours from the University of Messina seal.
+\ProvidesPackage{beamerthemeunime}
+
+\RequirePackage{tikz}
+\usetikzlibrary{calc}
+\RequirePackage[default]{lato}
+\RequirePackage[T1]{fontenc}
+
+% ---------------------------------------------------------------- colours
+\definecolor{unimeblue}{HTML}{006DAE}
+\definecolor{unimedark}{HTML}{004A78}
+\definecolor{unimegrey}{HTML}{949493}
+\definecolor{unimelight}{HTML}{E8F1F8}
+\definecolor{unimeink}{HTML}{1F2A33}
+\definecolor{unimeorange}{HTML}{EB6834}
+\definecolor{unimegreen}{HTML}{1BAF7A}
+\definecolor{unimered}{HTML}{C62E2E}
+
+\setbeamercolor{normal text}{fg=unimeink,bg=white}
+\setbeamercolor{structure}{fg=unimeblue}
+\setbeamercolor{frametitle}{fg=unimeblue}
+\setbeamercolor{framesubtitle}{fg=unimegrey}
+\setbeamercolor{alerted text}{fg=unimeorange}
+\setbeamercolor{block title}{fg=white,bg=unimeblue}
+\setbeamercolor{block body}{fg=unimeink,bg=unimelight}
+\setbeamercolor{block title alerted}{fg=white,bg=unimeorange}
+\setbeamercolor{block body alerted}{fg=unimeink,bg=unimeorange!10}
+\setbeamercolor{block title example}{fg=white,bg=unimegreen!85!black}
+\setbeamercolor{block body example}{fg=unimeink,bg=unimegreen!10}
+\setbeamercolor{itemize item}{fg=unimeblue}
+\setbeamercolor{itemize subitem}{fg=unimegrey}
+\setbeamercolor{enumerate item}{fg=unimeblue}
+
+\setbeamertemplate{navigation symbols}{}
+% Coloured areas bleed 2 mm past the page edge, so that PDF viewers do not
+% show a thin light line along the border (anti-aliasing at the page edge).
+\newlength{\unimebleed}\setlength{\unimebleed}{2mm}
+\setbeamertemplate{background canvas}{%
+  \usebeamercolor{background canvas}%
+  \begin{tikzpicture}
+    \useasboundingbox (0,0) rectangle (\paperwidth,\paperheight);
+    \fill[bg] (-\unimebleed,-\unimebleed) rectangle (\paperwidth+\unimebleed,\paperheight+\unimebleed);
+  \end{tikzpicture}}
+\setbeamertemplate{itemize item}{\raisebox{0.15ex}{\scriptsize$\blacktriangleright$}}
+\setbeamertemplate{itemize subitem}{\raisebox{0.2ex}{\tiny$\bullet$}}
+\setbeamertemplate{enumerate item}{\insertenumlabel.}
+\setbeamertemplate{blocks}[rounded][shadow=false]
+\setbeamerfont{frametitle}{size=\Large,series=\bfseries}
+\setbeamerfont{framesubtitle}{size=\footnotesize}
+\setbeamerfont{block title}{size=\small,series=\bfseries}
+\setbeamersize{text margin left=1.1cm,text margin right=1.0cm}
+
+% ------------------------------------------------------- frame title: seal square + title
+\setbeamertemplate{frametitle}{%
+  \vspace*{0.35cm}%
+  \begin{tikzpicture}[remember picture,overlay]
+    \node at ($(current page.north west)+(0.725cm,-0.675cm)$)
+      {\includegraphics[width=0.9cm]{assets/unime_logo.png}};
+  \end{tikzpicture}%
+  \hspace*{0.35cm}\begin{minipage}[t]{0.8\paperwidth}
+    \usebeamerfont{frametitle}\usebeamercolor[fg]{frametitle}\insertframetitle\par
+    \ifx\insertframesubtitle\@empty\else
+      {\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}\insertframesubtitle\par}%
+    \fi
+  \end{minipage}%
+  \vspace*{0.1cm}%
+}
+
+% ------------------------------------------------------------------ footline
+\setbeamertemplate{footline}{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \fill[unimeblue] ($(current page.south west)+(-\unimebleed,-\unimebleed)$) rectangle ($(current page.south east)+(\unimebleed,0.42cm)$);
+    \node[anchor=west,text=white,font=\tiny] at ($(current page.south west)+(0.35cm,0.21cm)$)
+      {\insertframenumber/\inserttotalframenumber};
+    \node[anchor=east,text=white,font=\tiny] at ($(current page.south east)+(-0.35cm,0.21cm)$)
+      {\insertshortauthor\ \textbar\ \insertshorttitle};
+  \end{tikzpicture}%
+}
+
+% ---------------------------------------------------------------- title page
+\setbeamertemplate{title page}{%
+  \begin{tikzpicture}[remember picture,overlay]
+    % right panel cut diagonally
+    \fill[unimeblue] ($(current page.north east)+(-5.6cm,0)+(0.0533cm,\unimebleed)$) -- ($(current page.north east)+(\unimebleed,\unimebleed)$)
+      -- ($(current page.south east)+(\unimebleed,-\unimebleed)$) -- ($(current page.south east)+(-8.0cm,0)+(-0.0533cm,-\unimebleed)$) -- cycle;
+    \node at ($(current page.east)+(-2.55cm,0.9cm)$)
+      {\includegraphics[width=2.3cm]{assets/unime_logo_white.png}};
+    \node[text=white,align=center,font=\small\bfseries,anchor=north] at ($(current page.east)+(-2.55cm,-0.55cm)$)
+      {University of Messina};
+    \node[text=white!85!unimeblue,align=center,font=\footnotesize,anchor=north] at ($(current page.east)+(-2.55cm,-1.05cm)$)
+      {Department of Engineering};
+    % small seal top left (original colours on the white side)
+    \node at ($(current page.north west)+(0.725cm,-0.675cm)$)
+      {\includegraphics[width=0.9cm]{assets/unime_logo.png}};
+    % title block
+    \node[anchor=west,align=left,text width=7.6cm] at ($(current page.west)+(0.6cm,0.15cm)$) {%
+      {\usebeamercolor[fg]{structure}\fontsize{15}{18.5}\selectfont\bfseries\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000\inserttitle\par}
+      \vspace{0.25cm}
+      {\color{unimegrey}\small\insertsubtitle\par}
+      \vspace{0.45cm}
+      {\footnotesize\bfseries\color{unimeink}\insertauthor\par}
+      \vspace{0.1cm}
+      {\scriptsize\color{unimeink}\insertinstitute\par}
+      \ifx\beamer@date\@empty\else
+        \vspace{0.15cm}
+        {\scriptsize\color{unimegrey}\insertdate\par}
+      \fi};
+  \end{tikzpicture}%
+}
+
+% ------------------------------------------------- section divider: table of contents
+\AtBeginSection[]{%
+  {\setbeamercolor{background canvas}{bg=unimeblue}
+   \setbeamertemplate{footline}{}
+   \begin{frame}[plain,noframenumbering]
+     \begin{tikzpicture}[remember picture,overlay]
+       \node at ($(current page.north west)+(0.725cm,-0.675cm)$)
+         {\includegraphics[width=0.85cm]{assets/unime_logo_white.png}};
+       \node[anchor=north west,text=white,font=\Large\bfseries] at ($(current page.north west)+(1.6cm,-0.35cm)$) {Outline};
+       \node[anchor=north west,text=white!80!unimeblue,font=\footnotesize] at ($(current page.north west)+(1.6cm,-0.95cm)$) {\insertsectionhead};
+     \end{tikzpicture}
+     \vspace{1.4cm}
+     \tableofcontents[currentsection,hideallsubsections,sectionstyle=show/shaded]
+   \end{frame}}%
+}
+\setbeamertemplate{section in toc}{\hspace*{0.4cm}{\color{white}$\blacktriangleright$}\ {\color{white}\bfseries\inserttocsection}\par\vspace{0.25cm}}
+\setbeamertemplate{section in toc shaded}{\hspace*{0.4cm}{\color{white!45!unimeblue}$\blacktriangleright$\ \inserttocsection}\par\vspace{0.25cm}}
+
+% ------------------------------------------------------------- closing slide
+\newcommand{\closingframe}[1]{%
+  {\setbeamercolor{background canvas}{bg=unimeblue}
+   \setbeamercolor{normal text}{fg=white}
+   \setbeamertemplate{footline}{}
+   \begin{frame}[plain,noframenumbering]
+     \begin{tikzpicture}[remember picture,overlay]
+       \node at ($(current page.north west)+(0.725cm,-0.675cm)$)
+         {\includegraphics[width=0.85cm]{assets/unime_logo_white.png}};
+     \end{tikzpicture}
+     \vfill
+     \begin{center}
+       {\color{white}\Large\bfseries\inserttitle\par}\vspace{0.5cm}
+       {\color{white}\itshape Thank you for your attention!\\ Questions?\par}\vspace{0.6cm}
+       {\color{white}\footnotesize #1\par}
+     \end{center}
+     \vfill
+   \end{frame}}%
+}

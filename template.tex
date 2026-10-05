@@ -1,0 +1,168 @@
+% =====================================================================
+%  UniMe Beamer template (16:9)
+%  University of Messina, Department of Engineering.
+%
+%  Files:   template.tex          this file: copy and rename it
+%           beamerthemeunime.sty  the theme (colours, title page, footline,
+%                                 section dividers, closing slide)
+%           assets/               UniMe seal, original colours and white
+%           figures/              put your images here
+%
+%  Build:   latexmk -pdf template.tex      (or pdflatex twice)
+%  Overleaf: zip the folder and use "New Project > Upload Project".
+%  Docs:    README.md
+% =====================================================================
+\documentclass[aspectratio=169,10pt]{beamer}
+\usetheme{unime}
+
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs,tabularx,multirow,array}
+\usepackage{pifont}      % \ding{51} check, \ding{55} cross
+\usepackage{listings}    % code listings
+\usepackage{qrcode}      % QR code on the closing slide
+\usefonttheme[onlymath]{serif}
+\graphicspath{{figures/}}
+
+% handy marks and column types
+\newcommand{\yes}{\textcolor{unimegreen!70!black}{\ding{51}}}
+\newcommand{\no}{\textcolor{unimered}{\ding{55}}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\lstset{basicstyle=\ttfamily\scriptsize,columns=fullflexible,keepspaces=true,
+  backgroundcolor=\color{unimelight},frame=single,rulecolor=\color{unimeblue!40},showstringspaces=false}
+
+% ---------------------------------------------------------------------
+% Title page data. The optional [short] arguments fill the footline.
+% ---------------------------------------------------------------------
+\title[Short title]{Title of the Presentation}
+\subtitle{Subtitle or one-sentence message}
+\author[N.~Surname et al.]{Name Surname, Second Author, Third Author}
+\institute{University of Messina \\ Department of Engineering}
+\date{}  % leave empty to hide the date
+
+% Theme colours available in the document:
+%   unimeblue (main), unimedark, unimegrey, unimelight (block backgrounds),
+%   unimeink (text), unimeorange (alerts), unimegreen, unimered
+
+\begin{document}
+
+\begin{frame}[plain,noframenumbering]
+  \titlepage
+\end{frame}
+
+% Every \section opens with a blue outline slide that highlights it.
+\section{Introduction}
+
+\begin{frame}{A simple slide}
+\framesubtitle{Frame subtitle, shown in grey under the title}
+\begin{itemize}
+  \item First point, with an \alert{alerted} word
+  \item Second point
+  \begin{itemize}
+    \item A sub-point
+  \end{itemize}
+  \item Third point
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Two columns: text and image}
+\begin{columns}[c]
+\column{0.5\textwidth}
+\begin{itemize}
+  \item Text on the left
+  \item An image on the right, from \texttt{figures/}
+  \item Replace \texttt{example-image-a} with your file
+\end{itemize}
+\column{0.46\textwidth}
+\includegraphics[width=\linewidth]{example-image-a}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Blocks}
+\begin{columns}[t]
+\column{0.32\textwidth}
+\begin{block}{Block}
+Standard block, UniMe blue.
+\end{block}
+\column{0.32\textwidth}
+\begin{exampleblock}{Example block}
+Green block, for results or definitions.
+\end{exampleblock}
+\column{0.32\textwidth}
+\begin{alertblock}{Alert block}
+Orange block, for warnings or limits.
+\end{alertblock}
+\end{columns}
+\vspace{0.4cm}
+\begin{center}
+\begin{tikzpicture}
+  \node[draw=unimeblue,line width=1.2pt,fill=unimelight,rounded corners=6pt,text width=0.75\textwidth,align=center,inner sep=10pt,font=\large]
+  {A key message in a highlighted box.};
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\section{Method}
+
+\begin{frame}{Equations}
+\begin{block}{A displayed equation}
+\[ \Pr[\text{event}] \;=\; 1-e^{-\lambda\Delta} \;\approx\; \lambda\Delta \quad \text{for small } \lambda\Delta \]
+\end{block}
+Inline math such as ${a(t)\le d}$ can be kept on one line with braces.
+\end{frame}
+
+\begin{frame}{A table}
+\begin{center}
+\footnotesize
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{0.85\textwidth}{@{}lYcc@{}}
+\toprule
+\textbf{Method} & \textbf{Description} & \textbf{Property A} & \textbf{Property B} \\
+\midrule
+Baseline & a short description & \no & \no \\
+Variant & another description & \yes & \no \\
+Proposed & our approach & \yes & \yes \\
+\bottomrule
+\end{tabularx}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Code}
+\begin{lstlisting}
+{ "id": "example",
+  "payload": { "action_type": "RESUME", "target_entity": "line_1" } }
+\end{lstlisting}
+\end{frame}
+
+\section{Results}
+
+\begin{frame}{A full-width figure}
+\begin{center}
+\includegraphics[width=0.7\linewidth,height=0.6\textheight,keepaspectratio]{example-image-b}
+\end{center}
+\begin{itemize}
+  \item One sentence that states what the figure shows
+\end{itemize}
+\end{frame}
+
+\section{Conclusions}
+
+\begin{frame}{Conclusions}
+\begin{enumerate}
+  \item First take-away
+  \item Second take-away
+  \item Third take-away
+\end{enumerate}
+\vspace{0.2cm}
+\textbf{Next}: future work in one line.
+\end{frame}
+
+% Closing slide: blue, with the title and "Thank you"; the argument is
+% printed below (contacts, link, QR code). Leave it empty with \closingframe{}.
+\closingframe{%
+  \begin{tabular}{@{}c@{\hspace{0.8cm}}l@{}}
+  \raisebox{-0.5\height}{\colorbox{white}{\color{black}\qrcode[height=1.5cm]{https://www.unime.it}}} &
+  \begin{tabular}{@{}l@{}}Name Surname --- \texttt{name.surname@unime.it}\\ \texttt{https://www.unime.it}\end{tabular}
+  \end{tabular}}
+
+\end{document}
